@@ -144,7 +144,7 @@ function getRandom(arr) {
   if(Array.isArray(arr)){
     length = arr.length;
     // Returns a random integer from 0 to length of arr:
-    randomIndex = Math.floor(Math.random() * length-1);
+    randomIndex = Math.floor(Math.random() * length);
   } else {
   }
 
