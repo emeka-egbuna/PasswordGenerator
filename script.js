@@ -116,7 +116,7 @@ function getPasswordOptions() {
   }
   
   if (size == null) {
-    return -1;
+    return -1;  // -1 exit code
   }
 
   if (size.length != null && size != null && size != undefined) {
@@ -140,19 +140,17 @@ function getPasswordOptions() {
 function getRandom(arr) {
   var randomIndex;
   var length;
+  var innerArr = [];
 
-  if(Array.isArray(arr)){
-    length = arr.length;
-    // Returns a random integer from 0 to length of arr:
-    randomIndex = Math.floor(Math.random() * length)-1;
-  } else {
+  length = arr.length;
+  // Returns a random integer from 0 to length of arr:
+  randomIndex = Math.floor(Math.random() * arr.length);
+  if(!Array.isArray(arr[randomIndex])){
+    innerArr[0] = arr[randomIndex];
+    arr[randomIndex] = innerArr;
   }
 
-  if(Array.isArray(arr)) {
-    return arr[randomIndex];
-  } else {
-    return arr;
-  }
+  return arr[randomIndex];
 }
 
 // Function to generate password with user input
@@ -160,6 +158,7 @@ function generatePassword() {
   var passwordContainer = "";
   var arrayValue;
   var optionsArr = [];
+  var index = 0;
 
   if(getPasswordOptions() == -1){
     return;
@@ -167,11 +166,11 @@ function generatePassword() {
 
   for(var i=0; i<passwordObj.length; i++) {
     if(passwordObj[i].option != false) {
-      optionsArr[i] = passwordObj[i].array;
+      optionsArr[index++] = passwordObj[i].array;
     }
   }
 
-  for(var i=0; i<=size; i++) {
+  for(var i=0; i<size; i++) {
     arrayValue = getRandom(optionsArr);
 
     //for(value in arrayValue) {
